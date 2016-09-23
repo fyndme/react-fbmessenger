@@ -1,0 +1,132 @@
+import * as React from 'react';
+/* eslint-disable max-len */
+
+import { PostbackCallback } from './types';
+import * as sendTypes from 'facebook-sendapi-types';
+// require('./scss/conversation.scss');
+
+import GenericTemplate from './generic-template';
+import ButtonTemplate from './button-template';
+import TextMessage from './text-message';
+import QuickReplies from './quick-replies';
+import SenderActions from './sender-actions';
+
+
+export function TemplateMessage(props: sendTypes.MessengerPayload & PostbackCallback) {
+  switch (props.message.attachment.payload.template_type) {
+    case 'generic':
+      return <GenericTemplate postbackCallback={props.postbackCallback} {...props.message.attachment.payload} />;
+
+    case 'button':
+      return <ButtonTemplate postbackCallback={props.postbackCallback} {...props.message.attachment.payload} />;
+
+    default:
+      return (<div className="error" />);
+  }
+}
+
+export function AttachementMessage(props: sendTypes.MessengerPayload & PostbackCallback) {
+  switch (props.message.attachment.type) {
+    case 'template':
+      return <TemplateMessage postbackCallback={props.postbackCallback} {...props} />;
+
+    default:
+      return (<div className="error" />);
+  }
+}
+
+export function Bubble(props: sendTypes.MessengerPayload & PostbackCallback) {
+  if (props.sender_action) {
+    return <span />;
+  }
+
+  if (props.message && props.message.text) {
+    // text message
+    return <TextMessage {...props.message} />;
+  }
+
+  if (props.message && props.message.attachment) {
+    return <AttachementMessage postbackCallback={props.postbackCallback} {...props} />;
+  }
+
+  return (<div className="error" />);
+}
+
+function needsToBeSmall(bubble: Array<sendTypes.MessengerPayload>) {
+  for (let i = 0; i < bubble.length; i++) {
+    if (bubble[i].message) {
+      if (bubble[i].message.attachment) {
+        if (bubble[i].message.attachment.type === 'template') {
+          if (bubble[i].message.attachment.payload.template_type === 'button') {
+            return true;
+          }
+          if (bubble[i].message.attachment.payload.template_type === 'generic') {
+            if (bubble[i].message.attachment.payload.elements.length === 1) {
+              return true;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  return false;
+}
+
+export interface Props {
+  conversation: Array<sendTypes.MessengerPayload>;
+  page_id: string;
+  postbackCallback: (payload:string) => any;
+}
+
+export interface State {
+
+}
+
+export default class Conversation extends React.Component<Props, State> { // eslint-disable-line
+  render() {
+    // split into an array of arrays.
+    // inside array is user's or bot's' bubbles
+    if (this.props.conversation.length < 1) {
+      return (<div className="empty" />);
+    }
+
+    const masterArray:Array<Array<sendTypes.MessengerPayload>> = [];
+    let bubbleArray = [this.props.conversation[0]];
+    for (let i = 1; i < this.props.conversation.length; i++) {
+      const lastMessage = bubbleArray[bubbleArray.length - 1];
+      const currentMessage = this.props.conversation[i];
+      if (lastMessage.recipient.id !== currentMessage.recipient.id) {
+        masterArray.push(bubbleArray);
+        bubbleArray = [];
+      }
+      bubbleArray.push(currentMessage);
+    }
+    masterArray.push(bubbleArray);
+
+    const bubbles = masterArray.map(setOfMessages => (
+      <div className={`bubble ${this.props.page_id === setOfMessages[0].recipient.id ? 'user' : 'self'}`}>
+        <div className={`multi ${needsToBeSmall(setOfMessages) ? 'conversation-small' : ''}`}>
+          {setOfMessages.filter(message => message.message).map(message => <Bubble postbackCallback={this.props.postbackCallback} {...message} />)}
+        </div>
+      </div>
+    ));
+    const lastMessage = bubbleArray[bubbleArray.length - 1];
+    const quickReplies = lastMessage.message && lastMessage.message.quick_replies ? <QuickReplies {...lastMessage.message} postbackCallback={this.props.postbackCallback} /> : null; // eslint-disable-line
+    const senderActions = lastMessage.sender_action ? (
+      <div className={'bubble self'}>
+        <div className={'multi'}>
+          <SenderActions sender_action={lastMessage.sender_action} />
+        </div>
+      </div>
+    ) : null;
+
+    return (
+      <div className="conversation">
+        {bubbles}
+        {quickReplies}
+        {senderActions}
+      </div>
+    );
+  }
+}

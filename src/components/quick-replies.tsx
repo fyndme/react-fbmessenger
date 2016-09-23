@@ -1,0 +1,20 @@
+import * as React from 'react';
+
+// require('./scss/quick-replies.scss');
+
+import { PostbackCallback } from './types';
+import * as sendTypes from 'facebook-sendapi-types';
+
+import Button from './button';
+
+export default function QuickReplies(props: sendTypes.MessengerMessage & PostbackCallback) {
+  return (
+    <div className="quick-replies">
+      {props.quick_replies.map(quickReply => (
+        <div className="reply">
+          <p><Button type="postback" title={quickReply.title} payload={quickReply.payload} postbackCallback={props.postbackCallback} /></p>
+        </div>
+      ))}
+    </div>
+  );
+}

@@ -1,0 +1,18 @@
+{
+  "name": "react-fbmessenger",
+  "version": "1.0.0",
+  "description": "React components to emulate a messenger conversation",
+  "main": "./dist/container.js",
+  "types": "./dist/container.d.ts",
+  "scripts": {
+    "build": "tsc && sass src/scss/conversation.scss dist/out.scss --style expanded --sourcemap=none",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Adam Juhasz",
+  "license": "MIT",
+  "devDependencies": {
+    "react": "^15.3.2",
+    "react-dom": "^15.3.2",
+    "typescript": "^2.0.3"
+  }
+}

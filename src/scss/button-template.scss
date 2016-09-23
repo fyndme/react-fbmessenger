@@ -1,0 +1,36 @@
+@import "./theme/colors.scss";
+
+.button-template {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid $self;
+  flex: 0 0 auto;
+  overflow: hidden;
+  background-color: $self;
+}
+
+.button-template:first-child {
+  border-top-left-radius: 18px;
+}
+
+.button-template:last-child {
+  border-bottom-left-radius: 18px;
+}
+
+.button-template:first-child {
+  border-top-right-radius: 18px;
+}
+
+.button-template:last-child {
+  border-bottom-right-radius: 18px;
+}
+
+.button-template .description {
+  padding-bottom: 6px;
+  height: inherit;
+}
+
+.button-template .description p {
+  font-weight: initial;
+  padding: 0 !important;
+}

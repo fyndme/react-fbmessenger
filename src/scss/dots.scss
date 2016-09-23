@@ -1,0 +1,27 @@
+.jumping-dots {
+  width: 14px;
+}
+
+.jumping-dots .dot {
+  position: relative;
+  bottom: 0;
+  animation: jump 2s infinite;
+}
+
+.jumping-dots .dot-1 {
+  animation-delay: 200ms;
+}
+
+.jumping-dots .dot-2 {
+  animation-delay: 400ms;
+}
+
+.jumping-dots .dot-3 {
+  animation-delay: 600ms;
+}
+
+@keyframes jump {
+  0% { bottom: 0; }
+  20% { bottom: 5px; }
+  40% { bottom: 0; }
+}

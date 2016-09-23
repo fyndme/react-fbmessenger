@@ -1,0 +1,53 @@
+@import "./theme/colors.scss";
+@import "./sizes.scss";
+
+.text-field {
+  position: absolute;
+  bottom: 0;
+  height: $textbox-size;
+  width: 100%;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.text-field form {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.text-field input[type="text"] {
+  border: 0;
+  font-size: 14px;
+  outline-width: 0;
+  font-family: Lato, sans-serif;
+}
+
+input[name="chattext"] {
+  flex-grow: 100;
+}
+
+.text-field input[type=submit] {
+  border: 0;
+  color: $button-color;
+  background-color: rgba(0, 0, 0, 0);
+  font-size: 14px;
+  border: 0;
+  font-family: Lato, sans-serif;
+  outline-width: 0;
+  cursor: pointer;
+}
+
+@media (max-width: 736px) {
+  .text-field {
+    height: $textbox-size-mobile;
+  }
+
+  .text-field input[type="text"] {
+    font-size: 16px;
+  }
+
+  .text-field input[type=submit] {
+    font-size: 16px;
+  }
+}

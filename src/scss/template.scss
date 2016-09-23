@@ -1,0 +1,34 @@
+@import "./theme/colors.scss";
+
+.template {
+  background-color: white;
+}
+
+.template:first-child {
+  padding-top: 0;
+}
+
+.template:last-child {
+  padding-bottom: 0;
+}
+
+.description {
+  display: flex;
+  flex-direction: column;
+  padding: 6px 12px 12px 12px;
+  margin: 0;
+  color: black;
+  height: 61px;
+}
+
+.description h4 {
+  font-weight: 600;
+  margin: 0;
+  text-align: left;
+}
+
+.description p {
+  font-weight: 300;
+  margin: 0;
+  text-align: left;
+}

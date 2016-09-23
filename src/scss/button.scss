@@ -1,0 +1,26 @@
+@import "./theme/colors.scss";
+
+.ctas {
+  display: flex;
+  flex-direction: column;
+  background-color: $background-color;
+}
+
+.ctas span {
+  color: $button-color;
+  font-weight: 400;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.ctas a {
+  color: $button-color;
+  text-decoration: none;
+}
+
+.ctas a:visited {
+  color: $button-color;
+}

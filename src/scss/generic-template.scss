@@ -1,0 +1,52 @@
+@import "./sizes.scss";
+@import "./theme/colors.scss";
+
+.generic-template {
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto;
+  flex-wrap: nowrap;
+  background-color: $self;
+  -webkit-overflow-scrolling: touch;
+}
+
+.generic-template:first-child .item:first-child {
+  border-top-left-radius: $corner-radius;
+}
+
+.generic-template:last-child .item:first-child {
+  border-bottom-left-radius: $corner-radius;
+}
+
+.generic-template:first-child .item:last-child {
+  border-top-right-radius: $corner-radius;
+}
+
+.generic-template:last-child .item:last-child {
+  border-bottom-right-radius: $corner-radius;
+}
+
+.generic-template .item:last-child {
+  border-bottom-right-radius: 18px;
+  border-top-right-radius: 18px;
+}
+
+.generic-template .item {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid $self;
+  flex: 0 0 auto;
+  width: $image-width;
+  overflow: hidden;
+  background-color: $background-color;
+}
+
+.generic-template .item img {
+  width: $image-width;
+  height: $image-height;
+  object-fit: cover;
+}
+
+p + .generic-template {
+  margin-top: 3px;
+}
