@@ -5,7 +5,7 @@
   "main": "./dist/container.js",
   "types": "./dist/container.d.ts",
   "scripts": {
-    "build": "tsc && sass src/scss/conversation.scss dist/out.scss --style expanded --sourcemap=none",
+    "build": "tsc && tsc --jsx preserve --outDir jsx && sass src/scss/conversation.scss dist/out.scss --style expanded --sourcemap=none",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Adam Juhasz",
