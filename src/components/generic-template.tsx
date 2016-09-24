@@ -4,11 +4,13 @@ import { StatelessComponent } from 'react';
 import { PostbackCallback } from './types';
 import * as sendTypes from 'facebook-sendapi-types';
 
+import { hash } from '../helpers/hash';
+
 import Button from './button';
 
-export const Element: StatelessComponent<sendTypes.MessengerItem & PostbackCallback> = (props) => {
+export function Element(props: sendTypes.MessengerItem & PostbackCallback) {
   const img = props.image_url ? (<img src={props.image_url} />) : (<div className="img-holder" />);
-  const buttons = props.buttons.map(button => (<Button postbackCallback={props.postbackCallback} {...button} />));
+  const buttons = props.buttons.map((button, index) => (<Button key={`${index}-${hash(JSON.stringify(button))}`} postbackCallback={props.postbackCallback} {...button} />));
   return (
     <div className="item">
       {img}
@@ -27,13 +29,11 @@ export interface GTProps {
   elements: Array<sendTypes.MessengerItem>;
 }
 
-const GenericTemplate: StatelessComponent<GTProps & PostbackCallback> = (props) => {
-  const items = props.elements.map(element => (<Element postbackCallback={props.postbackCallback} {...element} />));
+export default function GenericTemplate(props: GTProps & PostbackCallback) {
+  const items = props.elements.map((element, index) => (<Element key={`${index}-${hash(JSON.stringify(element))}`} postbackCallback={props.postbackCallback} {...element} />));
   return (
     <div className="template generic-template">
       {items}
     </div>
     );
 }
-
-export default GenericTemplate;

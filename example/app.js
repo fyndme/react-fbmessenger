@@ -1,7 +1,7 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 
-var Conversation = require('../dist/conversation');
+var ReactMessenger = require('../dist/');
 var conversation = [
 {
 "recipient":{
@@ -629,6 +629,6 @@ var conversation = [
 },
 ];
 ReactDOM.render(
-	React.createElement(Conversation.default, {conversation: conversation, page_id: '1'}), 
+	React.createElement(ReactMessenger.Conversation, {conversation: conversation, page_id: '1'}), 
 	document.getElementById('root')
 );

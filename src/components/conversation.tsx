@@ -14,6 +14,8 @@ import ImageTemplate from './image-template';
 import VideoTemplate from './video-template';
 import AudioTemplate from './audio-template';
 
+import { hash } from '../helpers/hash';
+
 export function TemplateMessage(props: sendTypes.MessengerPayload & PostbackCallback) {
   switch (props.message.attachment.payload.template_type) {
     case 'generic':
@@ -93,6 +95,18 @@ export interface State {
 
 }
 
+function addUniqueMid(conversation: Array<sendTypes.MessengerPayload>): Array<sendTypes.MessengerPayload> {
+  for(let i = 0; i < conversation.length; i++) {
+    const message: sendTypes.WebhookPayload = conversation[i] as sendTypes.WebhookPayload;
+    // console.log(message.toString());
+    if (!message.message.mid) {
+      message.message.mid = hash(JSON.stringify(message));
+      conversation[i] = message;
+    }
+  }
+  return conversation;
+}
+
 export default class Conversation extends React.Component<Props, State> { // eslint-disable-line
   render() {
     // split into an array of arrays.
@@ -100,6 +114,8 @@ export default class Conversation extends React.Component<Props, State> { // esl
     if (this.props.conversation.length < 1) {
       return (<div className="empty" />);
     }
+
+    addUniqueMid(this.props.conversation);
 
     const masterArray:Array<Array<sendTypes.MessengerPayload>> = [];
     let bubbleArray = [this.props.conversation[0]];
@@ -115,9 +131,14 @@ export default class Conversation extends React.Component<Props, State> { // esl
     masterArray.push(bubbleArray);
 
     const bubbles = masterArray.map(setOfMessages => (
-      <div className={`bubble ${this.props.page_id === setOfMessages[0].recipient.id ? 'user' : 'self'}`}>
+      <div key={hash(JSON.stringify(setOfMessages))} className={`bubble ${this.props.page_id === setOfMessages[0].recipient.id ? 'user' : 'self'}`}>
         <div className="multi">
-          {setOfMessages.filter(message => message.message).map(message => <Bubble postbackCallback={this.props.postbackCallback} {...message} />)}
+          {setOfMessages
+            .filter(payload => payload.message) // display only messages
+            .map((payload: sendTypes.WebhookPayload) => {
+              return <Bubble key={payload.message.mid} postbackCallback={this.props.postbackCallback} {...payload} />;
+            })
+            }
         </div>
       </div>
     ));
