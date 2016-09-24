@@ -11,6 +11,11 @@
   },
   "author": "Adam Juhasz",
   "license": "MIT",
+  "dependencies": {
+    "@types/react": "^0.14.37",
+    "@types/react-dom": "^0.14.17",
+    "facebook-sendapi-types": "fyndme/facebook-sendapi-types"
+  },
   "devDependencies": {
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
