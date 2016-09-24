@@ -24,6 +24,9 @@ import React from 'react';
 import ReactDOM from 'react-dom'
 import { Conversation } from 'react-fbmessenger'
 
+// if you use postcss include css directly or in html page
+require('react-fbmessenger/out.scss') // is valid CSS (just rename)
+
 const convo = [
 {
   "recipient":{
