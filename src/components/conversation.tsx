@@ -10,7 +10,9 @@ import ButtonTemplate from './button-template';
 import TextMessage from './text-message';
 import QuickReplies from './quick-replies';
 import SenderActions from './sender-actions';
-
+import ImageTemplate from './image-template';
+import VideoTemplate from './video-template';
+import AudioTemplate from './audio-template';
 
 export function TemplateMessage(props: sendTypes.MessengerPayload & PostbackCallback) {
   switch (props.message.attachment.payload.template_type) {
@@ -29,6 +31,15 @@ export function AttachementMessage(props: sendTypes.MessengerPayload & PostbackC
   switch (props.message.attachment.type) {
     case 'template':
       return <TemplateMessage postbackCallback={props.postbackCallback} {...props} />;
+
+    case 'image':
+      return <ImageTemplate {...props.message.attachment} />
+
+    case 'video':
+      return <VideoTemplate {...props.message.attachment} />
+
+    case 'audio':
+      return <AudioTemplate {...props.message.attachment} />
 
     default:
       return (<div className="error" />);
@@ -52,26 +63,25 @@ export function Bubble(props: sendTypes.MessengerPayload & PostbackCallback) {
   return (<div className="error" />);
 }
 
-function needsToBeSmall(bubble: Array<sendTypes.MessengerPayload>) {
-  for (let i = 0; i < bubble.length; i++) {
-    if (bubble[i].message) {
-      if (bubble[i].message.attachment) {
-        if (bubble[i].message.attachment.type === 'template') {
-          if (bubble[i].message.attachment.payload.template_type === 'button') {
-            return true;
-          }
-          if (bubble[i].message.attachment.payload.template_type === 'generic') {
-            if (bubble[i].message.attachment.payload.elements.length === 1) {
-              return true;
-            }
-          }
-        }
-      }
-    }
-  }
-
-  return false;
-}
+// function needsToBeSmall(bubble: Array<sendTypes.MessengerPayload>) {
+//   for (let i = 0; i < bubble.length; i++) {
+//     if (bubble[i].message) {
+//       if (bubble[i].message.attachment) {
+//         if (bubble[i].message.attachment.type === 'template') {
+//           if (bubble[i].message.attachment.payload.template_type === 'button') {
+//             return true;
+//           }
+//           if (bubble[i].message.attachment.payload.template_type === 'generic') {
+//             if (bubble[i].message.attachment.payload.elements.length === 1) {
+//               return true;
+//             }
+//           }
+//         }
+//       }
+//     }
+//   }
+//   return false;
+// }
 
 export interface Props {
   conversation: Array<sendTypes.MessengerPayload>;
@@ -106,7 +116,7 @@ export default class Conversation extends React.Component<Props, State> { // esl
 
     const bubbles = masterArray.map(setOfMessages => (
       <div className={`bubble ${this.props.page_id === setOfMessages[0].recipient.id ? 'user' : 'self'}`}>
-        <div className={`multi ${needsToBeSmall(setOfMessages) ? 'conversation-small' : ''}`}>
+        <div className="multi">
           {setOfMessages.filter(message => message.message).map(message => <Bubble postbackCallback={this.props.postbackCallback} {...message} />)}
         </div>
       </div>

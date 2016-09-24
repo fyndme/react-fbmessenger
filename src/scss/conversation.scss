@@ -8,6 +8,8 @@
 @import "button-template";
 @import "quick-replies";
 @import "text-bar";
+@import "image-template";
+@import "video-template";
 
 #root {
   width: inherit;
@@ -96,10 +98,6 @@
 
 .bubble > .multi > div + p {
   padding-top: 10px;
-}
-
-.conversation-small {
-  width: $image-width;
 }
 
 @media (max-width: 736px) {

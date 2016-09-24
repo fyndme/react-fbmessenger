@@ -6,7 +6,6 @@
   flex-direction: row;
   overflow-x: auto;
   flex-wrap: nowrap;
-  background-color: $self;
   -webkit-overflow-scrolling: touch;
 }
 
@@ -26,10 +25,10 @@
   border-bottom-right-radius: $corner-radius;
 }
 
-.generic-template .item:last-child {
-  border-bottom-right-radius: 18px;
-  border-top-right-radius: 18px;
-}
+// .generic-template .item:last-child {
+//   border-bottom-right-radius: 18px;
+//   border-top-right-radius: 18px;
+// }
 
 .generic-template .item {
   display: flex;

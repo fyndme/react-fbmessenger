@@ -1,0 +1,14 @@
+@import "./sizes.scss";
+@import "./theme/colors.scss";
+
+.video-template {
+  width: $image-width;
+  height: $image-height;
+  background-color: $self;
+}
+
+.video-template video {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}

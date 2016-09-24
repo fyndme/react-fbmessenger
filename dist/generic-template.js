@@ -7,11 +7,11 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
     }
     return t;
 };
-const React = require('react');
-const button_1 = require('./button');
-exports.Element = (props) => {
-    const img = props.image_url ? (React.createElement("img", {src: props.image_url})) : (React.createElement("div", {className: "img-holder"}));
-    const buttons = props.buttons.map(button => (React.createElement(button_1.default, __assign({postbackCallback: props.postbackCallback}, button))));
+var React = require('react');
+var button_1 = require('./button');
+exports.Element = function (props) {
+    var img = props.image_url ? (React.createElement("img", {src: props.image_url})) : (React.createElement("div", {className: "img-holder"}));
+    var buttons = props.buttons.map(function (button) { return (React.createElement(button_1.default, __assign({postbackCallback: props.postbackCallback}, button))); });
     return (React.createElement("div", {className: "item"}, 
         img, 
         React.createElement("div", {className: "description"}, 
@@ -19,8 +19,8 @@ exports.Element = (props) => {
             React.createElement("p", null, props.subtitle)), 
         React.createElement("div", {className: "ctas"}, buttons)));
 };
-const GenericTemplate = (props) => {
-    const items = props.elements.map(element => (React.createElement(exports.Element, __assign({postbackCallback: props.postbackCallback}, element))));
+var GenericTemplate = function (props) {
+    var items = props.elements.map(function (element) { return (React.createElement(exports.Element, __assign({postbackCallback: props.postbackCallback}, element))); });
     return (React.createElement("div", {className: "template generic-template"}, items));
 };
 Object.defineProperty(exports, "__esModule", { value: true });

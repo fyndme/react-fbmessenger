@@ -1,4 +1,9 @@
 "use strict";
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
 var __assign = (this && this.__assign) || Object.assign || function(t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
         s = arguments[i];
@@ -7,13 +12,16 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
     }
     return t;
 };
-const React = require('react');
+var React = require('react');
 // require('./scss/conversation.scss');
-const generic_template_1 = require('./generic-template');
-const button_template_1 = require('./button-template');
-const text_message_1 = require('./text-message');
-const quick_replies_1 = require('./quick-replies');
-const sender_actions_1 = require('./sender-actions');
+var generic_template_1 = require('./generic-template');
+var button_template_1 = require('./button-template');
+var text_message_1 = require('./text-message');
+var quick_replies_1 = require('./quick-replies');
+var sender_actions_1 = require('./sender-actions');
+var image_template_1 = require('./image-template');
+var video_template_1 = require('./video-template');
+var audio_template_1 = require('./audio-template');
 function TemplateMessage(props) {
     switch (props.message.attachment.payload.template_type) {
         case 'generic':
@@ -29,6 +37,12 @@ function AttachementMessage(props) {
     switch (props.message.attachment.type) {
         case 'template':
             return React.createElement(TemplateMessage, __assign({postbackCallback: props.postbackCallback}, props));
+        case 'image':
+            return React.createElement(image_template_1.default, __assign({}, props.message.attachment));
+        case 'video':
+            return React.createElement(video_template_1.default, __assign({}, props.message.attachment));
+        case 'audio':
+            return React.createElement(audio_template_1.default, __assign({}, props.message.attachment));
         default:
             return (React.createElement("div", {className: "error"}));
     }
@@ -48,50 +62,36 @@ function Bubble(props) {
     return (React.createElement("div", {className: "error"}));
 }
 exports.Bubble = Bubble;
-function needsToBeSmall(bubble) {
-    for (let i = 0; i < bubble.length; i++) {
-        if (bubble[i].message) {
-            if (bubble[i].message.attachment) {
-                if (bubble[i].message.attachment.type === 'template') {
-                    if (bubble[i].message.attachment.payload.template_type === 'button') {
-                        return true;
-                    }
-                    if (bubble[i].message.attachment.payload.template_type === 'generic') {
-                        if (bubble[i].message.attachment.payload.elements.length === 1) {
-                            return true;
-                        }
-                    }
-                }
-            }
-        }
+var Conversation = (function (_super) {
+    __extends(Conversation, _super);
+    function Conversation() {
+        _super.apply(this, arguments);
     }
-    return false;
-}
-class Conversation extends React.Component {
-    render() {
+    Conversation.prototype.render = function () {
+        var _this = this;
         // split into an array of arrays.
         // inside array is user's or bot's' bubbles
         if (this.props.conversation.length < 1) {
             return (React.createElement("div", {className: "empty"}));
         }
-        const masterArray = [];
-        let bubbleArray = [this.props.conversation[0]];
-        for (let i = 1; i < this.props.conversation.length; i++) {
-            const lastMessage = bubbleArray[bubbleArray.length - 1];
-            const currentMessage = this.props.conversation[i];
-            if (lastMessage.recipient.id !== currentMessage.recipient.id) {
+        var masterArray = [];
+        var bubbleArray = [this.props.conversation[0]];
+        for (var i = 1; i < this.props.conversation.length; i++) {
+            var lastMessage_1 = bubbleArray[bubbleArray.length - 1];
+            var currentMessage = this.props.conversation[i];
+            if (lastMessage_1.recipient.id !== currentMessage.recipient.id) {
                 masterArray.push(bubbleArray);
                 bubbleArray = [];
             }
             bubbleArray.push(currentMessage);
         }
         masterArray.push(bubbleArray);
-        const bubbles = masterArray.map(setOfMessages => (React.createElement("div", {className: `bubble ${this.props.page_id === setOfMessages[0].recipient.id ? 'user' : 'self'}`}, 
-            React.createElement("div", {className: `multi ${needsToBeSmall(setOfMessages) ? 'conversation-small' : ''}`}, setOfMessages.filter(message => message.message).map(message => React.createElement(Bubble, __assign({postbackCallback: this.props.postbackCallback}, message))))
-        )));
-        const lastMessage = bubbleArray[bubbleArray.length - 1];
-        const quickReplies = lastMessage.message && lastMessage.message.quick_replies ? React.createElement(quick_replies_1.default, __assign({}, lastMessage.message, {postbackCallback: this.props.postbackCallback})) : null; // eslint-disable-line
-        const senderActions = lastMessage.sender_action ? (React.createElement("div", {className: 'bubble self'}, 
+        var bubbles = masterArray.map(function (setOfMessages) { return (React.createElement("div", {className: "bubble " + (_this.props.page_id === setOfMessages[0].recipient.id ? 'user' : 'self')}, 
+            React.createElement("div", {className: "multi"}, setOfMessages.filter(function (message) { return message.message; }).map(function (message) { return React.createElement(Bubble, __assign({postbackCallback: _this.props.postbackCallback}, message)); }))
+        )); });
+        var lastMessage = bubbleArray[bubbleArray.length - 1];
+        var quickReplies = lastMessage.message && lastMessage.message.quick_replies ? React.createElement(quick_replies_1.default, __assign({}, lastMessage.message, {postbackCallback: this.props.postbackCallback})) : null; // eslint-disable-line
+        var senderActions = lastMessage.sender_action ? (React.createElement("div", {className: 'bubble self'}, 
             React.createElement("div", {className: 'multi'}, 
                 React.createElement(sender_actions_1.default, {sender_action: lastMessage.sender_action})
             )
@@ -100,8 +100,9 @@ class Conversation extends React.Component {
             bubbles, 
             quickReplies, 
             senderActions));
-    }
-}
+    };
+    return Conversation;
+}(React.Component));
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = Conversation;
 //# sourceMappingURL=conversation.js.map
