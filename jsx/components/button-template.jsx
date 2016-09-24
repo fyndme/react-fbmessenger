@@ -1,14 +1,14 @@
 "use strict";
-var React = require('react');
-var hash_1 = require('../helpers/hash');
-var button_1 = require('./button');
+const React = require('react');
+const hash_1 = require('../helpers/hash');
+const button_1 = require('./button');
 function ButtonTemplate(props) {
     return (<div className="template button-template">
       <div className="description">
         <p>{props.text}</p>
       </div>
       <div className="ctas">
-        {props.buttons.map(function (button, index) { return <button_1.default key={index + "-" + hash_1.hash(JSON.stringify(button))} postbackCallback={props.postbackCallback} {...button}/>; })}
+        {props.buttons.map((button, index) => <button_1.default key={`${index}-${hash_1.hash(JSON.stringify(button))}`} postbackCallback={props.postbackCallback} {...button}/>)}
       </div>
     </div>);
 }

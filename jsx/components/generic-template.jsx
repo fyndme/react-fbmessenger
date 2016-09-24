@@ -1,10 +1,10 @@
 "use strict";
-var React = require('react');
-var hash_1 = require('../helpers/hash');
-var button_1 = require('./button');
+const React = require('react');
+const hash_1 = require('../helpers/hash');
+const button_1 = require('./button');
 function Element(props) {
-    var img = props.image_url ? (<img src={props.image_url}/>) : (<div className="img-holder"/>);
-    var buttons = props.buttons.map(function (button, index) { return (<button_1.default key={index + "-" + hash_1.hash(JSON.stringify(button))} postbackCallback={props.postbackCallback} {...button}/>); });
+    const img = props.image_url ? (<img src={props.image_url}/>) : (<div className="img-holder"/>);
+    const buttons = props.buttons.map((button, index) => (<button_1.default key={`${index}-${hash_1.hash(JSON.stringify(button))}`} postbackCallback={props.postbackCallback} {...button}/>));
     return (<div className="item">
       {img}
       <div className="description">
@@ -18,7 +18,7 @@ function Element(props) {
 }
 exports.Element = Element;
 function GenericTemplate(props) {
-    var items = props.elements.map(function (element, index) { return (<Element key={index + "-" + hash_1.hash(JSON.stringify(element))} postbackCallback={props.postbackCallback} {...element}/>); });
+    const items = props.elements.map((element, index) => (<Element key={`${index}-${hash_1.hash(JSON.stringify(element))}`} postbackCallback={props.postbackCallback} {...element}/>));
     return (<div className="template generic-template">
       {items}
     </div>);

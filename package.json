@@ -5,8 +5,9 @@
   "main": "./dist/container.js",
   "types": "./dist/container.d.ts",
   "scripts": {
-    "build": "tsc && tsc --jsx preserve --outDir jsx && sass src/scss/conversation.scss dist/out.scss --style expanded --sourcemap=none",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc && tsc --jsx preserve --outDir jsx --target ES2015 && sass src/scss/conversation.scss dist/out.scss --style expanded --sourcemap=none",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepublish": "npm run build"
   },
   "author": "Adam Juhasz",
   "license": "MIT",

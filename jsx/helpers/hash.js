@@ -1,8 +1,8 @@
 "use strict";
 function hash(aString) {
-    var hash = 0;
-    var i, chr;
-    var len = aString.length;
+    let hash = 0;
+    let i, chr;
+    const len = aString.length;
     for (i = 0; i < len; i++) {
         chr = aString.charCodeAt(i);
         hash = ((hash << 5) - hash) + chr;

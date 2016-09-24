@@ -1,5 +1,5 @@
 "use strict";
-var React = require('react');
+const React = require('react');
 function VideoAttachment(props) {
     return (<div className="template video-template button-template">
       <video controls>

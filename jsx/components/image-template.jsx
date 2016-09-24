@@ -1,5 +1,5 @@
 "use strict";
-var React = require('react');
+const React = require('react');
 function ImageAttachment(props) {
     return (<div className="template image-template button-template">
       <img src={props.payload.url}/>

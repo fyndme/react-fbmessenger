@@ -1,5 +1,5 @@
 "use strict";
-var React = require('react');
+const React = require('react');
 function TextMessage(props) {
     return (<p>{props.text}</p>);
 }

@@ -1,5 +1,5 @@
 "use strict";
-var React = require('react');
+const React = require('react');
 function AudioAttachment(props) {
     return (<div className="template audio-template button-template">
       <audio controls>

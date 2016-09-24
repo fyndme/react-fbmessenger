@@ -1,20 +1,15 @@
 "use strict";
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-var React = require('react');
+const React = require('react');
 // require('./scss/conversation.scss');
-var generic_template_1 = require('./generic-template');
-var button_template_1 = require('./button-template');
-var text_message_1 = require('./text-message');
-var quick_replies_1 = require('./quick-replies');
-var sender_actions_1 = require('./sender-actions');
-var image_template_1 = require('./image-template');
-var video_template_1 = require('./video-template');
-var audio_template_1 = require('./audio-template');
-var hash_1 = require('../helpers/hash');
+const generic_template_1 = require('./generic-template');
+const button_template_1 = require('./button-template');
+const text_message_1 = require('./text-message');
+const quick_replies_1 = require('./quick-replies');
+const sender_actions_1 = require('./sender-actions');
+const image_template_1 = require('./image-template');
+const video_template_1 = require('./video-template');
+const audio_template_1 = require('./audio-template');
+const hash_1 = require('../helpers/hash');
 function TemplateMessage(props) {
     switch (props.message.attachment.payload.template_type) {
         case 'generic':
@@ -56,8 +51,8 @@ function Bubble(props) {
 }
 exports.Bubble = Bubble;
 function addUniqueMid(conversation) {
-    for (var i = 0; i < conversation.length; i++) {
-        var message = conversation[i];
+    for (let i = 0; i < conversation.length; i++) {
+        const message = conversation[i];
         // console.log(message.toString());
         if (!message.message.mid) {
             message.message.mid = hash_1.hash(JSON.stringify(message));
@@ -66,43 +61,38 @@ function addUniqueMid(conversation) {
     }
     return conversation;
 }
-var Conversation = (function (_super) {
-    __extends(Conversation, _super);
-    function Conversation() {
-        _super.apply(this, arguments);
-    }
-    Conversation.prototype.render = function () {
-        var _this = this;
+class Conversation extends React.Component {
+    render() {
         // split into an array of arrays.
         // inside array is user's or bot's' bubbles
         if (this.props.conversation.length < 1) {
             return (<div className="empty"/>);
         }
         addUniqueMid(this.props.conversation);
-        var masterArray = [];
-        var bubbleArray = [this.props.conversation[0]];
-        for (var i = 1; i < this.props.conversation.length; i++) {
-            var lastMessage_1 = bubbleArray[bubbleArray.length - 1];
-            var currentMessage = this.props.conversation[i];
-            if (lastMessage_1.recipient.id !== currentMessage.recipient.id) {
+        const masterArray = [];
+        let bubbleArray = [this.props.conversation[0]];
+        for (let i = 1; i < this.props.conversation.length; i++) {
+            const lastMessage = bubbleArray[bubbleArray.length - 1];
+            const currentMessage = this.props.conversation[i];
+            if (lastMessage.recipient.id !== currentMessage.recipient.id) {
                 masterArray.push(bubbleArray);
                 bubbleArray = [];
             }
             bubbleArray.push(currentMessage);
         }
         masterArray.push(bubbleArray);
-        var bubbles = masterArray.map(function (setOfMessages) { return (<div key={hash_1.hash(JSON.stringify(setOfMessages))} className={"bubble " + (_this.props.page_id === setOfMessages[0].recipient.id ? 'user' : 'self')}>
+        const bubbles = masterArray.map(setOfMessages => (<div key={hash_1.hash(JSON.stringify(setOfMessages))} className={`bubble ${this.props.page_id === setOfMessages[0].recipient.id ? 'user' : 'self'}`}>
         <div className="multi">
           {setOfMessages
-            .filter(function (payload) { return payload.message; }) // display only messages
-            .map(function (payload) {
-            return <Bubble key={payload.message.mid} postbackCallback={_this.props.postbackCallback} {...payload}/>;
+            .filter(payload => payload.message) // display only messages
+            .map((payload) => {
+            return <Bubble key={payload.message.mid} postbackCallback={this.props.postbackCallback} {...payload}/>;
         })}
         </div>
-      </div>); });
-        var lastMessage = bubbleArray[bubbleArray.length - 1];
-        var quickReplies = lastMessage.message && lastMessage.message.quick_replies ? <quick_replies_1.default {...lastMessage.message} postbackCallback={this.props.postbackCallback}/> : null; // eslint-disable-line
-        var senderActions = lastMessage.sender_action ? (<div className={'bubble self'}>
+      </div>));
+        const lastMessage = bubbleArray[bubbleArray.length - 1];
+        const quickReplies = lastMessage.message && lastMessage.message.quick_replies ? <quick_replies_1.default {...lastMessage.message} postbackCallback={this.props.postbackCallback}/> : null; // eslint-disable-line
+        const senderActions = lastMessage.sender_action ? (<div className={'bubble self'}>
         <div className={'multi'}>
           <sender_actions_1.default sender_action={lastMessage.sender_action}/>
         </div>
@@ -112,9 +102,8 @@ var Conversation = (function (_super) {
         {quickReplies}
         {senderActions}
       </div>);
-    };
-    return Conversation;
-}(React.Component));
+    }
+}
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = Conversation;
 //# sourceMappingURL=conversation.jsx.map

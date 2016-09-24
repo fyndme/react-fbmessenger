@@ -1,5 +1,5 @@
 "use strict";
-var React = require('react');
+const React = require('react');
 function TypingOn() {
     return (<p className="jumping-dots">
       <span className="dot dot-1">.</span>

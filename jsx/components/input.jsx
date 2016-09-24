@@ -1,42 +1,35 @@
 "use strict";
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
 /* eslint-disable max-len */
-var React = require('react');
-var TextInput = (function (_super) {
-    __extends(TextInput, _super);
-    function TextInput(props) {
-        _super.call(this, props);
+const React = require('react');
+class TextInput extends React.Component {
+    constructor(props) {
+        super(props);
         this.clickHandler = this.clickHandler.bind(this);
         this.getFocus = this.getFocus.bind(this);
         this.loseFocus = this.loseFocus.bind(this);
     }
-    TextInput.prototype.getFocus = function () {
+    getFocus() {
         if (this.props.textFocusCallback) {
             this.props.textFocusCallback();
         }
-    };
-    TextInput.prototype.loseFocus = function () {
+    }
+    loseFocus() {
         if (this.props.textBlurCallback) {
             this.props.textBlurCallback();
         }
-    };
-    TextInput.prototype.clickHandler = function (e) {
+    }
+    clickHandler(e) {
         e.preventDefault();
         this.props.userTextCallback(this.refs['textbox'].value);
         this.refs['textbox'].value = '';
-    };
-    TextInput.prototype.render = function () {
+    }
+    render() {
         return (<form onSubmit={this.clickHandler}>
         <input type="text" ref="textbox" id="fyndme-textbox" name="chattext" placeholder="Type a message..." onFocus={this.getFocus} onBlur={this.loseFocus}/>
         <input type="submit" value="Send"/>
       </form>);
-    };
-    return TextInput;
-}(React.Component));
+    }
+}
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = TextInput;
 //# sourceMappingURL=input.jsx.map
