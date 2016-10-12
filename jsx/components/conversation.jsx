@@ -81,7 +81,7 @@ class Conversation extends React.Component {
             bubbleArray.push(currentMessage);
         }
         masterArray.push(bubbleArray);
-        const bubbles = masterArray.map(setOfMessages => (<div key={hash_1.hash(JSON.stringify(setOfMessages))} className={`bubble ${this.props.page_id === setOfMessages[0].recipient.id ? 'user' : 'self'}`}>
+        const bubbles = masterArray.map((setOfMessages, index) => (<div key={`${index}-${hash_1.hash(JSON.stringify(setOfMessages))}`} className={`bubble ${this.props.page_id === setOfMessages[0].recipient.id ? 'user' : 'self'}`}>
         <div className="multi">
           {setOfMessages
             .filter(payload => payload.message) // display only messages

@@ -99,7 +99,7 @@ var Conversation = (function (_super) {
             bubbleArray.push(currentMessage);
         }
         masterArray.push(bubbleArray);
-        var bubbles = masterArray.map(function (setOfMessages) { return (React.createElement("div", {key: hash_1.hash(JSON.stringify(setOfMessages)), className: "bubble " + (_this.props.page_id === setOfMessages[0].recipient.id ? 'user' : 'self')}, 
+        var bubbles = masterArray.map(function (setOfMessages, index) { return (React.createElement("div", {key: index + "-" + hash_1.hash(JSON.stringify(setOfMessages)), className: "bubble " + (_this.props.page_id === setOfMessages[0].recipient.id ? 'user' : 'self')}, 
             React.createElement("div", {className: "multi"}, setOfMessages
                 .filter(function (payload) { return payload.message; }) // display only messages
                 .map(function (payload) {
