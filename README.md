@@ -1,6 +1,12 @@
 # React components to generate a similar chat look to Facebook messenger
 Useful to create mockups of messenger bot examples  
 ![Screenshot](/demo.png?raw=true "Screenshot")
+
+## Installation
+````bash 
+$ npm install --save react-fbmessenger
+````
+
 ## Usage
 The main components are `Conversation` and `Container`. 
 - Conversation creates the chat bubbles and takes 3 props 
@@ -17,6 +23,9 @@ The main components are `Conversation` and `Container`.
 import React from 'react';
 import ReactDOM from 'react-dom'
 import { Conversation } from 'react-fbmessenger'
+
+// if you use postcss include css directly or in html page
+require('react-fbmessenger/out.scss') // is valid CSS (just rename)
 
 const convo = [
 {
