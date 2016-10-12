@@ -1,9 +1,9 @@
 {
   "name": "react-fbmessenger",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "React components to emulate a messenger conversation",
-  "main": "./dist/container.js",
-  "types": "./dist/container.d.ts",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "scripts": {
     "build": "tsc && tsc --jsx preserve --outDir jsx --target ES2015 && sass src/scss/conversation.scss dist/out.scss --style expanded --sourcemap=none",
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -12,13 +12,15 @@
   "author": "Adam Juhasz",
   "license": "MIT",
   "dependencies": {
-    "@types/react": "^0.14.37",
-    "@types/react-dom": "^0.14.17",
     "facebook-sendapi-types": "fyndme/facebook-sendapi-types"
   },
-  "devDependencies": {
+  "peerDependencies": {
     "react": "^15.3.2",
-    "react-dom": "^15.3.2",
+    "react-dom": "^15.3.2"
+  },
+  "devDependencies": {    
+    "@types/react": "^0.14.37",
+    "@types/react-dom": "^0.14.17",
     "typescript": "^2.0.3"
   }
 }
