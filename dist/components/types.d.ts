@@ -1,5 +1,5 @@
 export interface PostbackCallback {
-    postbackCallback: (payload: string) => any;
+    postbackCallback: (payload: string, text: string) => any;
 }
 export interface FocusCallbacks {
     userTextCallback: (text: string) => any;

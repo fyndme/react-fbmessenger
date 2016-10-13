@@ -17,7 +17,7 @@ export default class Button extends React.Component<Props, State> {
   }
 
   clickHandler() {
-    this.props.postbackCallback(this.props.payload);
+    this.props.postbackCallback(this.props.payload, this.props.title);
   }
 
   render() {

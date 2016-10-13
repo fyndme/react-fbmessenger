@@ -12,7 +12,7 @@ var Button = (function (_super) {
         this.clickHandler = this.clickHandler.bind(this);
     }
     Button.prototype.clickHandler = function () {
-        this.props.postbackCallback(this.props.payload);
+        this.props.postbackCallback(this.props.payload, this.props.title);
     };
     Button.prototype.render = function () {
         if (this.props.type === 'web_url') {
