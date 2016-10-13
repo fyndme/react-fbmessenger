@@ -1,10 +1,10 @@
 import * as React from 'react';
 
-import { PostbackCallback } from './types';
+import { PostbackCallbackProps } from './types';
 import * as sendTypes from 'facebook-sendapi-types';
 
 // require('./scss/button.scss');
-export type Props = sendTypes.MessengerButton & PostbackCallback;
+export type Props = sendTypes.MessengerButton & PostbackCallbackProps;
 
 export interface State {
 

@@ -2,7 +2,7 @@ import * as React from 'react';
 /* eslint-disable max-len */
 // require('./scss/dots.scss');
 
-import { PostbackCallback } from './types';
+import { PostbackCallbackProps } from './types';
 import * as sendTypes from 'facebook-sendapi-types';
 
 function TypingOn() {

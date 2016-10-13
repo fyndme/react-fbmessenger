@@ -700,6 +700,8 @@
 	exports.Container = container_1.default;
 	var conversation_1 = __webpack_require__(5);
 	exports.Conversation = conversation_1.default;
+	var Types = __webpack_require__(17);
+	exports.Types = Types;
 	//# sourceMappingURL=index.js.map
 
 /***/ },
@@ -953,7 +955,7 @@
 	        this.clickHandler = this.clickHandler.bind(this);
 	    }
 	    Button.prototype.clickHandler = function () {
-	        this.props.postbackCallback(this.props.payload);
+	        this.props.postbackCallback(this.props.payload, this.props.title);
 	    };
 	    Button.prototype.render = function () {
 	        if (this.props.type === 'web_url') {
@@ -1150,6 +1152,13 @@
 	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = TextInput;
 	//# sourceMappingURL=input.js.map
+
+/***/ },
+/* 17 */
+/***/ function(module, exports) {
+
+	"use strict";
+	//# sourceMappingURL=types.js.map
 
 /***/ }
 /******/ ]);

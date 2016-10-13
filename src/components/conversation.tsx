@@ -1,7 +1,7 @@
 import * as React from 'react';
 /* eslint-disable max-len */
 
-import { PostbackCallback } from './types';
+import { PostbackCallbackProps, PostbackCallbackFuntion } from './types';
 import * as sendTypes from 'facebook-sendapi-types';
 // require('./scss/conversation.scss');
 
@@ -16,7 +16,7 @@ import AudioTemplate from './audio-template';
 
 import { hash } from '../helpers/hash';
 
-export function TemplateMessage(props: sendTypes.MessengerPayload & PostbackCallback) {
+export function TemplateMessage(props: sendTypes.MessengerPayload & PostbackCallbackProps) {
   switch (props.message.attachment.payload.template_type) {
     case 'generic':
       return <GenericTemplate postbackCallback={props.postbackCallback} {...props.message.attachment.payload} />;
@@ -29,7 +29,7 @@ export function TemplateMessage(props: sendTypes.MessengerPayload & PostbackCall
   }
 }
 
-export function AttachementMessage(props: sendTypes.MessengerPayload & PostbackCallback) {
+export function AttachementMessage(props: sendTypes.MessengerPayload & PostbackCallbackProps) {
   switch (props.message.attachment.type) {
     case 'template':
       return <TemplateMessage postbackCallback={props.postbackCallback} {...props} />;
@@ -48,7 +48,7 @@ export function AttachementMessage(props: sendTypes.MessengerPayload & PostbackC
   }
 }
 
-export function Bubble(props: sendTypes.MessengerPayload & PostbackCallback) {
+export function Bubble(props: sendTypes.MessengerPayload & PostbackCallbackProps) {
   if (props.sender_action) {
     return <span />;
   }
@@ -88,7 +88,7 @@ export function Bubble(props: sendTypes.MessengerPayload & PostbackCallback) {
 export interface Props {
   conversation: Array<sendTypes.MessengerPayload>;
   page_id: string;
-  postbackCallback: (payload:string) => any;
+  postbackCallback: PostbackCallbackFuntion;
 }
 
 export interface State {
