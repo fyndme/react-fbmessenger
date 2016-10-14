@@ -121,7 +121,6 @@ export default class Conversation extends React.Component<Props, State> { // esl
     // split into an array of arrays.
     // inside array is user's or bot's' bubbles
     const filteredConversation = filterConversation(this.props.conversation);
-    console.log('filteredConversation', filteredConversation);
     addUniqueMid(filteredConversation);
     
     if (filteredConversation.length < 1) {
