@@ -74,6 +74,14 @@ function addUniqueMid(conversation) {
     }
     return conversation;
 }
+function filterConversation(conversation) {
+    return conversation.filter(function (line) {
+        if (line.sender_action) {
+            return false;
+        }
+        return true;
+    });
+}
 var Conversation = (function (_super) {
     __extends(Conversation, _super);
     function Conversation() {
@@ -83,15 +91,16 @@ var Conversation = (function (_super) {
         var _this = this;
         // split into an array of arrays.
         // inside array is user's or bot's' bubbles
-        if (this.props.conversation.length < 1) {
+        var filteredConversation = filterConversation(this.props.conversation);
+        addUniqueMid(filteredConversation);
+        if (filteredConversation.length < 1) {
             return (React.createElement("div", {className: "empty"}));
         }
-        addUniqueMid(this.props.conversation);
         var masterArray = [];
-        var bubbleArray = [this.props.conversation[0]];
-        for (var i = 1; i < this.props.conversation.length; i++) {
+        var bubbleArray = [filteredConversation[0]];
+        for (var i = 1; i < filteredConversation.length; i++) {
             var lastMessage_1 = bubbleArray[bubbleArray.length - 1];
-            var currentMessage = this.props.conversation[i];
+            var currentMessage = filteredConversation[i];
             if (lastMessage_1.recipient.id !== currentMessage.recipient.id) {
                 masterArray.push(bubbleArray);
                 bubbleArray = [];

@@ -61,19 +61,28 @@ function addUniqueMid(conversation) {
     }
     return conversation;
 }
+function filterConversation(conversation) {
+    return conversation.filter(line => {
+        if (line.sender_action) {
+            return false;
+        }
+        return true;
+    });
+}
 class Conversation extends React.Component {
     render() {
         // split into an array of arrays.
         // inside array is user's or bot's' bubbles
-        if (this.props.conversation.length < 1) {
+        const filteredConversation = filterConversation(this.props.conversation);
+        addUniqueMid(filteredConversation);
+        if (filteredConversation.length < 1) {
             return (<div className="empty"/>);
         }
-        addUniqueMid(this.props.conversation);
         const masterArray = [];
-        let bubbleArray = [this.props.conversation[0]];
-        for (let i = 1; i < this.props.conversation.length; i++) {
+        let bubbleArray = [filteredConversation[0]];
+        for (let i = 1; i < filteredConversation.length; i++) {
             const lastMessage = bubbleArray[bubbleArray.length - 1];
-            const currentMessage = this.props.conversation[i];
+            const currentMessage = filteredConversation[i];
             if (lastMessage.recipient.id !== currentMessage.recipient.id) {
                 masterArray.push(bubbleArray);
                 bubbleArray = [];
