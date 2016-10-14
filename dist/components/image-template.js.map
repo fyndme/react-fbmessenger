@@ -1,1 +1,0 @@
-{"version":3,"file":"image-template.js","sourceRoot":"","sources":["../../src/components/image-template.tsx"],"names":[],"mappings":";AAAA,IAAY,KAAK,WAAM,OAAO,CAAC,CAAA;AAI/B,yBAAwC,KAAyC;IAC/E,MAAM,CAAC,CACL,qBAAC,GAAG,IAAC,SAAS,EAAC,yCAAyC;QACtD,qBAAC,GAAG,IAAC,GAAG,EAAE,KAAK,CAAC,OAAO,CAAC,GAAI,EAAG;KAC3B,CACP,CAAC;AACJ,CAAC;AAND;iCAMC,CAAA"}
