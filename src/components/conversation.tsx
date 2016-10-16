@@ -110,6 +110,9 @@ function addUniqueMid(conversation: Array<sendTypes.MessengerPayload>): Array<se
 function filterConversation(conversation: Array<sendTypes.MessengerPayload>): Array<sendTypes.MessengerPayload> {
   return conversation.filter(line => {
     if (line.sender_action) {
+      if (line.sender_action === 'typing_on') {
+        return true;
+      }
       return false;
     }
     return true;
