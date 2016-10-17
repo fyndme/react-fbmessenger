@@ -887,7 +887,6 @@
 	            }))
 	        )); });
 	        var lastMessage = bubbleArray[bubbleArray.length - 1];
-	        console.log('lm', lastMessage);
 	        var quickReplies = lastMessage.message && lastMessage.message.quick_replies ? React.createElement(quick_replies_1.default, __assign({}, lastMessage.message, {postbackCallback: this.props.postbackCallback})) : null; // eslint-disable-line
 	        var senderActions = lastMessage.sender_action ? (React.createElement("div", {className: 'bubble self'}, 
 	            React.createElement("div", {className: 'multi'}, 
