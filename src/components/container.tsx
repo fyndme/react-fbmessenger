@@ -7,6 +7,7 @@ import * as sendTypes from 'facebook-sendapi-types';
 import Conversation from './conversation';
 export { Conversation as Conversation};
 import PersistentMenu from './persistent-menu';
+import * as defaults from '../helpers/defaultFunctions';
 
 export interface Props {
   persistentMenu: sendTypes.PersistentMenu;
@@ -19,9 +20,19 @@ export interface State {
 import { Props as ConversationProps } from './conversation';
 import Input from './input';
 
-export type PropUnion = Props & ConversationProps & sendTypes.MessengerPayload & FocusCallbacks;
+export type PropUnion = Props & ConversationProps & FocusCallbacks;
 
 export default class Container extends React.Component<PropUnion, State> {
+  public static defaultProps: PropUnion = {
+      persistentMenu: null,
+      conversation: [],
+      page_id: 'page_id',
+      postbackCallback: defaults.defaultPostbackCallback,
+      userTextCallback: defaults.defualTextCallback,
+      textFocusCallback: defaults.defaultFocusCallback,
+      textBlurCallback: defaults.defaultBlurCallback,
+  };
+
   constructor(props: PropUnion) {
     super(props);
     this.state = {
@@ -46,7 +57,7 @@ export default class Container extends React.Component<PropUnion, State> {
 
   render() {
     let menu = this.state.showMenu ? <PersistentMenu postbackCallback={this.props.postbackCallback} items={this.props.persistentMenu} /> : null;
-    let menuButon = (!this.props.persistentMenu) ? null : <div className={`persistent-menu-button ${this.state.showMenu ? 'open' : 'closed'}`} onClick={this.handleMenuClick} ></div>;
+    let menuButon = this.props.persistentMenu === null ? null : <div className={`persistent-menu-button ${this.state.showMenu ? 'open' : 'closed'}`} onClick={this.handleMenuClick} ></div>;
 
     return (
       <div className="chatbox">

@@ -11,8 +11,9 @@ export interface State {
     showMenu: boolean;
 }
 import { Props as ConversationProps } from './conversation';
-export declare type PropUnion = Props & ConversationProps & sendTypes.MessengerPayload & FocusCallbacks;
+export declare type PropUnion = Props & ConversationProps & FocusCallbacks;
 export default class Container extends React.Component<PropUnion, State> {
+    static defaultProps: PropUnion;
     constructor(props: PropUnion);
     componentDidMount(): void;
     componentDidUpdate(): void;

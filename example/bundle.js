@@ -706,7 +706,7 @@
 	exports.Container = container_1.default;
 	var conversation_1 = __webpack_require__(5);
 	exports.Conversation = conversation_1.default;
-	var Types = __webpack_require__(18);
+	var Types = __webpack_require__(19);
 	exports.Types = Types;
 	//# sourceMappingURL=index.js.map
 
@@ -733,7 +733,8 @@
 	var conversation_1 = __webpack_require__(5);
 	exports.Conversation = conversation_1.default;
 	var persistent_menu_1 = __webpack_require__(16);
-	var input_1 = __webpack_require__(17);
+	var defaults = __webpack_require__(17);
+	var input_1 = __webpack_require__(18);
 	var Container = (function (_super) {
 	    __extends(Container, _super);
 	    function Container(props) {
@@ -756,13 +757,22 @@
 	    };
 	    Container.prototype.render = function () {
 	        var menu = this.state.showMenu ? React.createElement(persistent_menu_1.default, {postbackCallback: this.props.postbackCallback, items: this.props.persistentMenu}) : null;
-	        var menuButon = (!this.props.persistentMenu) ? null : React.createElement("div", {className: "persistent-menu-button " + (this.state.showMenu ? 'open' : 'closed'), onClick: this.handleMenuClick});
+	        var menuButon = this.props.persistentMenu === null ? null : React.createElement("div", {className: "persistent-menu-button " + (this.state.showMenu ? 'open' : 'closed'), onClick: this.handleMenuClick});
 	        return (React.createElement("div", {className: "chatbox"}, 
 	            React.createElement(conversation_1.default, __assign({ref: "chat"}, this.props)), 
 	            React.createElement("div", {className: "text-field"}, 
 	                React.createElement(input_1.default, {userTextCallback: this.props.userTextCallback, textFocusCallback: this.props.textFocusCallback, textBlurCallback: this.props.textBlurCallback}, menuButon)
 	            ), 
 	            menu));
+	    };
+	    Container.defaultProps = {
+	        persistentMenu: null,
+	        conversation: [],
+	        page_id: 'page_id',
+	        postbackCallback: defaults.defaultPostbackCallback,
+	        userTextCallback: defaults.defualTextCallback,
+	        textFocusCallback: defaults.defaultFocusCallback,
+	        textBlurCallback: defaults.defaultBlurCallback,
 	    };
 	    return Container;
 	}(React.Component));
@@ -1165,6 +1175,17 @@
 
 /***/ },
 /* 17 */
+/***/ function(module, exports) {
+
+	"use strict";
+	exports.defaultPostbackCallback = function (payload, text) { return null; };
+	exports.defualTextCallback = function (text) { return null; };
+	exports.defaultFocusCallback = function () { return null; };
+	exports.defaultBlurCallback = function () { return null; };
+	//# sourceMappingURL=defaultFunctions.js.map
+
+/***/ },
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1211,7 +1232,7 @@
 	//# sourceMappingURL=input.js.map
 
 /***/ },
-/* 18 */
+/* 19 */
 /***/ function(module, exports) {
 
 	"use strict";

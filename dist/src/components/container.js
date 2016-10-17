@@ -17,6 +17,7 @@ var ReactDOM = require('react-dom');
 var conversation_1 = require('./conversation');
 exports.Conversation = conversation_1.default;
 var persistent_menu_1 = require('./persistent-menu');
+var defaults = require('../helpers/defaultFunctions');
 var input_1 = require('./input');
 var Container = (function (_super) {
     __extends(Container, _super);
@@ -40,13 +41,22 @@ var Container = (function (_super) {
     };
     Container.prototype.render = function () {
         var menu = this.state.showMenu ? React.createElement(persistent_menu_1.default, {postbackCallback: this.props.postbackCallback, items: this.props.persistentMenu}) : null;
-        var menuButon = (!this.props.persistentMenu) ? null : React.createElement("div", {className: "persistent-menu-button " + (this.state.showMenu ? 'open' : 'closed'), onClick: this.handleMenuClick});
+        var menuButon = this.props.persistentMenu === null ? null : React.createElement("div", {className: "persistent-menu-button " + (this.state.showMenu ? 'open' : 'closed'), onClick: this.handleMenuClick});
         return (React.createElement("div", {className: "chatbox"}, 
             React.createElement(conversation_1.default, __assign({ref: "chat"}, this.props)), 
             React.createElement("div", {className: "text-field"}, 
                 React.createElement(input_1.default, {userTextCallback: this.props.userTextCallback, textFocusCallback: this.props.textFocusCallback, textBlurCallback: this.props.textBlurCallback}, menuButon)
             ), 
             menu));
+    };
+    Container.defaultProps = {
+        persistentMenu: null,
+        conversation: [],
+        page_id: 'page_id',
+        postbackCallback: defaults.defaultPostbackCallback,
+        userTextCallback: defaults.defualTextCallback,
+        textFocusCallback: defaults.defaultFocusCallback,
+        textBlurCallback: defaults.defaultBlurCallback,
     };
     return Container;
 }(React.Component));
