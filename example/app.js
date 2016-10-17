@@ -1,7 +1,7 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 
-var ReactMessenger = require('../dist/src');
+var ReactMessenger = require('../dist/src/');
 var conversation = [
 {
 "recipient":{

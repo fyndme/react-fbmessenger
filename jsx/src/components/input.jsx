@@ -25,6 +25,7 @@ class TextInput extends React.Component {
     }
     render() {
         return (<form onSubmit={this.clickHandler}>
+        {this.props.children}
         <input type="text" ref="textbox" id="fyndme-textbox" name="chattext" placeholder="Type a message..." onFocus={this.getFocus} onBlur={this.loseFocus} autoComplete="off"/>
         <input type="submit" value="Send"/>
       </form>);

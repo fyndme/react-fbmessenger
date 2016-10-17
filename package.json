@@ -7,6 +7,7 @@
   "scripts": {
     "build": "tsc && tsc --jsx preserve --outDir jsx --target ES2015 && sass src/scss/conversation.scss dist/out.scss --style expanded --sourcemap=none",
     "test": "echo \"Error: no test specified\" && exit 1",
+    "clean": "rm -rf dist && rm -rf jsx && rm example/bundle.js",
     "prepublish": "npm run build && cd example && webpack"
   },
   "author": "Adam Juhasz",
