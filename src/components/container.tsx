@@ -24,13 +24,13 @@ export type PropUnion = Props & ConversationProps & FocusCallbacks;
 
 export default class Container extends React.Component<PropUnion, State> {
   public static defaultProps: PropUnion = {
-      persistentMenu: null,
-      conversation: [],
-      page_id: 'page_id',
-      postbackCallback: defaults.defaultPostbackCallback,
-      userTextCallback: defaults.defualTextCallback,
-      textFocusCallback: defaults.defaultFocusCallback,
-      textBlurCallback: defaults.defaultBlurCallback,
+    persistentMenu: null,
+    conversation: [],
+    page_id: 'page_id',
+    postbackCallback: defaults.defaultPostbackCallback,
+    userTextCallback: defaults.defualTextCallback,
+    textFocusCallback: defaults.defaultFocusCallback,
+    textBlurCallback: defaults.defaultBlurCallback,
   };
 
   constructor(props: PropUnion) {
