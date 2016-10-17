@@ -756,12 +756,11 @@
 	    };
 	    Container.prototype.render = function () {
 	        var menu = this.state.showMenu ? React.createElement(persistent_menu_1.default, {postbackCallback: this.props.postbackCallback, items: this.props.persistentMenu}) : null;
+	        var menuButon = (!this.props.persistentMenu) ? null : React.createElement("div", {className: "persistent-menu-button " + (this.state.showMenu ? 'open' : 'closed'), onClick: this.handleMenuClick});
 	        return (React.createElement("div", {className: "chatbox"}, 
 	            React.createElement(conversation_1.default, __assign({ref: "chat"}, this.props)), 
 	            React.createElement("div", {className: "text-field"}, 
-	                React.createElement(input_1.default, {userTextCallback: this.props.userTextCallback, textFocusCallback: this.props.textFocusCallback, textBlurCallback: this.props.textBlurCallback}, 
-	                    React.createElement("div", {className: "persistent-menu-button", onClick: this.handleMenuClick})
-	                )
+	                React.createElement(input_1.default, {userTextCallback: this.props.userTextCallback, textFocusCallback: this.props.textFocusCallback, textBlurCallback: this.props.textBlurCallback}, menuButon)
 	            ), 
 	            menu));
 	    };

@@ -279,23 +279,73 @@ input[name="chattext"] {
     bottom: 0;
   }
 }
-.persistent-menu-button {
-  width: 30px;
-  height: 30px;
-  cursor: pointer;
-}
-
-.persistent-menu {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
 .persistent-menu .menu-item {
   height: 48px;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.persistent-menu-button {
+  width: 20px;
+  height: 20px;
+  position: relative;
+  transform: rotate(0deg);
+  transition: .5s ease-in-out;
+  cursor: pointer;
+  margin: 5px;
+  margin-left: 0px;
+}
+
+.persistent-menu-button span {
+  display: block;
+  position: absolute;
+  height: 3.33333px;
+  width: 100%;
+  background: #0084ff;
+  border-radius: 0px;
+  opacity: 1;
+  left: 0;
+  transform: rotate(0deg);
+  transition: .25s ease-in-out;
+}
+
+.persistent-menu-button span:nth-child(1) {
+  top: 0px;
+}
+
+.persistent-menu-button span:nth-child(2),
+.persistent-menu-button span:nth-child(3) {
+  top: 8.33333px;
+}
+
+.persistent-menu-button span:nth-child(4) {
+  top: 16.66667px;
+}
+
+.persistent-menu-button.open span:nth-child(1) {
+  top: 10px;
+  width: 0%;
+  left: 50%;
+}
+
+.persistent-menu-button.open span:nth-child(2) {
+  transform: rotate(45deg);
+}
+
+.persistent-menu-button.open span:nth-child(3) {
+  transform: rotate(-45deg);
+}
+
+.persistent-menu-button.open span:nth-child(4) {
+  top: 10px;
+  width: 0%;
+  left: 50%;
 }
 
 #root {

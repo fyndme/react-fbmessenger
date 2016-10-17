@@ -46,12 +46,14 @@ export default class Container extends React.Component<PropUnion, State> {
 
   render() {
     let menu = this.state.showMenu ? <PersistentMenu postbackCallback={this.props.postbackCallback} items={this.props.persistentMenu} /> : null;
+    let menuButon = (!this.props.persistentMenu) ? null : <div className={`persistent-menu-button ${this.state.showMenu ? 'open' : 'closed'}`} onClick={this.handleMenuClick} ></div>;
+
     return (
       <div className="chatbox">
         <Conversation ref="chat" {...this.props} />
         <div className="text-field">
           <Input userTextCallback={this.props.userTextCallback} textFocusCallback={this.props.textFocusCallback} textBlurCallback={this.props.textBlurCallback} >
-            <div className="persistent-menu-button" onClick={this.handleMenuClick} ></div>
+            {menuButon}
           </Input>
         </div>
         {menu}
