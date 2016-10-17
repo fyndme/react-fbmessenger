@@ -9,10 +9,9 @@
     "build-jsx": "tsc --jsx preserve --outDir jsx --target ES2015",
     "build-sass": "sass src/scss/conversation.scss dist/out.scss --style expanded --sourcemap=none",
     "build-example": "cd example && webpack",
-    "build-all": "npm run build && npm run build-jsx && npm run build-sass && npm run build-example",
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "rm -rf dist && rm -rf jsx && rm example/bundle.js",
-    "prepublish": "npm run build-all"
+    "prepublish": "npm run build && npm run build-jsx && npm run build-sass && npm run build-example"
   },
   "author": "Adam Juhasz",
   "license": "MIT",
