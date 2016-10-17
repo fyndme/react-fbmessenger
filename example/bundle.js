@@ -706,7 +706,7 @@
 	exports.Container = container_1.default;
 	var conversation_1 = __webpack_require__(5);
 	exports.Conversation = conversation_1.default;
-	var Types = __webpack_require__(19);
+	var Types = __webpack_require__(20);
 	exports.Types = Types;
 	//# sourceMappingURL=index.js.map
 
@@ -733,8 +733,9 @@
 	var conversation_1 = __webpack_require__(5);
 	exports.Conversation = conversation_1.default;
 	var persistent_menu_1 = __webpack_require__(16);
-	var defaults = __webpack_require__(17);
-	var input_1 = __webpack_require__(18);
+	var persistent_menu_button_1 = __webpack_require__(17);
+	var defaults = __webpack_require__(18);
+	var input_1 = __webpack_require__(19);
 	var Container = (function (_super) {
 	    __extends(Container, _super);
 	    function Container(props) {
@@ -743,6 +744,7 @@
 	            showMenu: false,
 	        };
 	        this.handleMenuClick = this.handleMenuClick.bind(this);
+	        this.handleFocus = this.handleFocus.bind(this);
 	    }
 	    Container.prototype.componentDidMount = function () {
 	        var div = ReactDOM.findDOMNode(this.refs['chat']);
@@ -755,13 +757,19 @@
 	    Container.prototype.handleMenuClick = function (event) {
 	        this.setState({ showMenu: !this.state.showMenu });
 	    };
+	    Container.prototype.handleFocus = function () {
+	        this.setState({ showMenu: false });
+	        if (this.props.textFocusCallback) {
+	            this.props.textFocusCallback();
+	        }
+	    };
 	    Container.prototype.render = function () {
 	        var menu = this.state.showMenu ? React.createElement(persistent_menu_1.default, {postbackCallback: this.props.postbackCallback, items: this.props.persistentMenu}) : null;
-	        var menuButon = this.props.persistentMenu === null ? null : React.createElement("div", {className: "persistent-menu-button " + (this.state.showMenu ? 'open' : 'closed'), onClick: this.handleMenuClick});
+	        var menuButon = this.props.persistentMenu === null ? null : React.createElement(persistent_menu_button_1.default, {isMenuOpen: this.state.showMenu, onClick: this.handleMenuClick});
 	        return (React.createElement("div", {className: "chatbox"}, 
 	            React.createElement(conversation_1.default, __assign({ref: "chat"}, this.props)), 
 	            React.createElement("div", {className: "text-field"}, 
-	                React.createElement(input_1.default, {userTextCallback: this.props.userTextCallback, textFocusCallback: this.props.textFocusCallback, textBlurCallback: this.props.textBlurCallback}, menuButon)
+	                React.createElement(input_1.default, {userTextCallback: this.props.userTextCallback, textFocusCallback: this.handleFocus, textBlurCallback: this.props.textBlurCallback}, menuButon)
 	            ), 
 	            menu));
 	    };
@@ -1002,7 +1010,7 @@
 	    Button.prototype.render = function () {
 	        if (this.props.type === 'web_url') {
 	            return (React.createElement("span", null, 
-	                React.createElement("a", {href: this.props.url}, this.props.title)
+	                React.createElement("a", {href: this.props.url, target: "_blank"}, this.props.title)
 	            ));
 	        }
 	        else if (this.props.type === 'postback') {
@@ -1165,9 +1173,13 @@
 	var React = __webpack_require__(1);
 	var button_1 = __webpack_require__(8);
 	function PersistentMenu(props) {
-	    return (React.createElement("div", {className: "persistent-menu"}, props.items.call_to_actions.map(function (item) { return (React.createElement("div", {className: "menu-item"}, 
-	        React.createElement(button_1.default, __assign({}, props, item))
-	    )); })));
+	    return (React.createElement("div", {className: "persistent-menu"}, 
+	        React.createElement("div", {key: "menu-top", className: "menu-item menu-top"}, 
+	            React.createElement("span", null, "Menu")
+	        ), 
+	        props.items.call_to_actions.map(function (item, index) { return (React.createElement("div", {key: index + "-" + item.title, className: "menu-item"}, 
+	            React.createElement(button_1.default, __assign({}, props, item))
+	        )); })));
 	}
 	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = PersistentMenu;
@@ -1175,6 +1187,23 @@
 
 /***/ },
 /* 17 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var React = __webpack_require__(1);
+	function PersistentMenuButton(props) {
+	    return (React.createElement("div", {className: "persistent-menu-button " + (props.isMenuOpen ? 'open' : 'closed'), onClick: props.onClick}, 
+	        React.createElement("span", null), 
+	        React.createElement("span", null), 
+	        React.createElement("span", null), 
+	        React.createElement("span", null)));
+	}
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = PersistentMenuButton;
+	//# sourceMappingURL=persistent-menu-button.js.map
+
+/***/ },
+/* 18 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -1185,7 +1214,7 @@
 	//# sourceMappingURL=defaultFunctions.js.map
 
 /***/ },
-/* 18 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1232,7 +1261,7 @@
 	//# sourceMappingURL=input.js.map
 
 /***/ },
-/* 19 */
+/* 20 */
 /***/ function(module, exports) {
 
 	"use strict";

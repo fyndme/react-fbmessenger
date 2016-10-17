@@ -22,7 +22,7 @@ export default class Button extends React.Component<Props, State> {
 
   render() {
     if (this.props.type === 'web_url') {
-      return (<span><a href={this.props.url}>{this.props.title}</a></span>);
+      return (<span><a href={this.props.url} target="_blank">{this.props.title}</a></span>);
     } else if (this.props.type === 'postback') {
       return (<span onClick={this.clickHandler}><a href="#">{this.props.title}</a></span>);
     }

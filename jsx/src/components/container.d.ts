@@ -18,5 +18,6 @@ export default class Container extends React.Component<PropUnion, State> {
     componentDidMount(): void;
     componentDidUpdate(): void;
     handleMenuClick(event: React.MouseEvent<HTMLDivElement>): void;
+    handleFocus(): void;
     render(): JSX.Element;
 }

@@ -17,6 +17,7 @@ var ReactDOM = require('react-dom');
 var conversation_1 = require('./conversation');
 exports.Conversation = conversation_1.default;
 var persistent_menu_1 = require('./persistent-menu');
+var persistent_menu_button_1 = require('./persistent-menu-button');
 var defaults = require('../helpers/defaultFunctions');
 var input_1 = require('./input');
 var Container = (function (_super) {
@@ -27,6 +28,7 @@ var Container = (function (_super) {
             showMenu: false,
         };
         this.handleMenuClick = this.handleMenuClick.bind(this);
+        this.handleFocus = this.handleFocus.bind(this);
     }
     Container.prototype.componentDidMount = function () {
         var div = ReactDOM.findDOMNode(this.refs['chat']);
@@ -39,13 +41,19 @@ var Container = (function (_super) {
     Container.prototype.handleMenuClick = function (event) {
         this.setState({ showMenu: !this.state.showMenu });
     };
+    Container.prototype.handleFocus = function () {
+        this.setState({ showMenu: false });
+        if (this.props.textFocusCallback) {
+            this.props.textFocusCallback();
+        }
+    };
     Container.prototype.render = function () {
         var menu = this.state.showMenu ? React.createElement(persistent_menu_1.default, {postbackCallback: this.props.postbackCallback, items: this.props.persistentMenu}) : null;
-        var menuButon = this.props.persistentMenu === null ? null : React.createElement("div", {className: "persistent-menu-button " + (this.state.showMenu ? 'open' : 'closed'), onClick: this.handleMenuClick});
+        var menuButon = this.props.persistentMenu === null ? null : React.createElement(persistent_menu_button_1.default, {isMenuOpen: this.state.showMenu, onClick: this.handleMenuClick});
         return (React.createElement("div", {className: "chatbox"}, 
             React.createElement(conversation_1.default, __assign({ref: "chat"}, this.props)), 
             React.createElement("div", {className: "text-field"}, 
-                React.createElement(input_1.default, {userTextCallback: this.props.userTextCallback, textFocusCallback: this.props.textFocusCallback, textBlurCallback: this.props.textBlurCallback}, menuButon)
+                React.createElement(input_1.default, {userTextCallback: this.props.userTextCallback, textFocusCallback: this.handleFocus, textBlurCallback: this.props.textBlurCallback}, menuButon)
             ), 
             menu));
     };

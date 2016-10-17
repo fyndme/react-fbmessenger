@@ -17,7 +17,7 @@ var Button = (function (_super) {
     Button.prototype.render = function () {
         if (this.props.type === 'web_url') {
             return (React.createElement("span", null, 
-                React.createElement("a", {href: this.props.url}, this.props.title)
+                React.createElement("a", {href: this.props.url, target: "_blank"}, this.props.title)
             ));
         }
         else if (this.props.type === 'postback') {

@@ -279,16 +279,29 @@ input[name="chattext"] {
     bottom: 0;
   }
 }
+.persistent-menu {
+  position: absolute;
+  bottom: 30px;
+  width: 100%;
+  background-color: white;
+}
+
 .persistent-menu .menu-item {
   height: 48px;
   display: flex;
   justify-content: center;
   align-items: center;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-* {
-  margin: 0;
-  padding: 0;
+.persistent-menu .menu-item a {
+  color: #0084ff;
+  text-decoration: none;
+}
+
+.menu-item.menu-top {
+  border-top: 1px solid black;
+  font-weight: bold;
 }
 
 .persistent-menu-button {

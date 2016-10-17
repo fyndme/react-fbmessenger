@@ -11,8 +11,11 @@ export interface Props {
 export default function PersistentMenu(props: Props & PostbackCallbackProps) {
   return (
     <div className="persistent-menu">
-      {props.items.call_to_actions.map(item => (
-        <div className="menu-item">
+      <div key="menu-top" className="menu-item menu-top">
+        <span>Menu</span>
+      </div>
+      {props.items.call_to_actions.map((item, index) => (
+        <div key={`${index}-${item.title}`} className="menu-item">
           <Button {...props} {...item} />
         </div>
       ))}

@@ -1,16 +1,28 @@
 @import "./theme/colors.scss";
 @import "./sizes.scss";
 
+.persistent-menu {
+  position: absolute;
+  bottom: $textbox-size;
+  width: 100%;
+  background-color: $background-color;
+}
 .persistent-menu .menu-item {
   height: 48px;
   display: flex;
   justify-content: center;
   align-items: center;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-* {
-  margin: 0;
-  padding: 0; 
+.persistent-menu .menu-item a {
+  color: $button-color;
+  text-decoration: none;
+}
+
+.menu-item.menu-top {
+  border-top: 1px solid black;
+  font-weight: bold;
 }
 
 $size: 20px;

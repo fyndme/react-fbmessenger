@@ -7,6 +7,7 @@ import * as sendTypes from 'facebook-sendapi-types';
 import Conversation from './conversation';
 export { Conversation as Conversation};
 import PersistentMenu from './persistent-menu';
+import PersistentMenuButtom from './persistent-menu-button';
 import * as defaults from '../helpers/defaultFunctions';
 
 export interface Props {
@@ -39,6 +40,7 @@ export default class Container extends React.Component<PropUnion, State> {
       showMenu: false,
     };
     this.handleMenuClick = this.handleMenuClick.bind(this);
+    this.handleFocus = this.handleFocus.bind(this);
   }
 
   componentDidMount() {
@@ -55,15 +57,22 @@ export default class Container extends React.Component<PropUnion, State> {
     this.setState({ showMenu: !this.state.showMenu });
   }
 
+  handleFocus() {
+    this.setState({ showMenu: false });
+    if (this.props.textFocusCallback) {
+      this.props.textFocusCallback();
+    }
+  }
+
   render() {
     let menu = this.state.showMenu ? <PersistentMenu postbackCallback={this.props.postbackCallback} items={this.props.persistentMenu} /> : null;
-    let menuButon = this.props.persistentMenu === null ? null : <div className={`persistent-menu-button ${this.state.showMenu ? 'open' : 'closed'}`} onClick={this.handleMenuClick} ></div>;
+    let menuButon = this.props.persistentMenu === null ? null : <PersistentMenuButtom isMenuOpen={this.state.showMenu} onClick={this.handleMenuClick} />;
 
     return (
       <div className="chatbox">
         <Conversation ref="chat" {...this.props} />
         <div className="text-field">
-          <Input userTextCallback={this.props.userTextCallback} textFocusCallback={this.props.textFocusCallback} textBlurCallback={this.props.textBlurCallback} >
+          <Input userTextCallback={this.props.userTextCallback} textFocusCallback={this.handleFocus} textBlurCallback={this.props.textBlurCallback} >
             {menuButon}
           </Input>
         </div>

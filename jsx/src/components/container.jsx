@@ -4,6 +4,7 @@ const ReactDOM = require('react-dom');
 const conversation_1 = require('./conversation');
 exports.Conversation = conversation_1.default;
 const persistent_menu_1 = require('./persistent-menu');
+const persistent_menu_button_1 = require('./persistent-menu-button');
 const defaults = require('../helpers/defaultFunctions');
 const input_1 = require('./input');
 class Container extends React.Component {
@@ -13,6 +14,7 @@ class Container extends React.Component {
             showMenu: false,
         };
         this.handleMenuClick = this.handleMenuClick.bind(this);
+        this.handleFocus = this.handleFocus.bind(this);
     }
     componentDidMount() {
         const div = ReactDOM.findDOMNode(this.refs['chat']);
@@ -25,13 +27,19 @@ class Container extends React.Component {
     handleMenuClick(event) {
         this.setState({ showMenu: !this.state.showMenu });
     }
+    handleFocus() {
+        this.setState({ showMenu: false });
+        if (this.props.textFocusCallback) {
+            this.props.textFocusCallback();
+        }
+    }
     render() {
         let menu = this.state.showMenu ? <persistent_menu_1.default postbackCallback={this.props.postbackCallback} items={this.props.persistentMenu}/> : null;
-        let menuButon = this.props.persistentMenu === null ? null : <div className={`persistent-menu-button ${this.state.showMenu ? 'open' : 'closed'}`} onClick={this.handleMenuClick}></div>;
+        let menuButon = this.props.persistentMenu === null ? null : <persistent_menu_button_1.default isMenuOpen={this.state.showMenu} onClick={this.handleMenuClick}/>;
         return (<div className="chatbox">
         <conversation_1.default ref="chat" {...this.props}/>
         <div className="text-field">
-          <input_1.default userTextCallback={this.props.userTextCallback} textFocusCallback={this.props.textFocusCallback} textBlurCallback={this.props.textBlurCallback}>
+          <input_1.default userTextCallback={this.props.userTextCallback} textFocusCallback={this.handleFocus} textBlurCallback={this.props.textBlurCallback}>
             {menuButon}
           </input_1.default>
         </div>

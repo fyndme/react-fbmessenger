@@ -10,9 +10,13 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
 var React = require('react');
 var button_1 = require('./button');
 function PersistentMenu(props) {
-    return (React.createElement("div", {className: "persistent-menu"}, props.items.call_to_actions.map(function (item) { return (React.createElement("div", {className: "menu-item"}, 
-        React.createElement(button_1.default, __assign({}, props, item))
-    )); })));
+    return (React.createElement("div", {className: "persistent-menu"}, 
+        React.createElement("div", {key: "menu-top", className: "menu-item menu-top"}, 
+            React.createElement("span", null, "Menu")
+        ), 
+        props.items.call_to_actions.map(function (item, index) { return (React.createElement("div", {key: index + "-" + item.title, className: "menu-item"}, 
+            React.createElement(button_1.default, __assign({}, props, item))
+        )); })));
 }
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = PersistentMenu;
