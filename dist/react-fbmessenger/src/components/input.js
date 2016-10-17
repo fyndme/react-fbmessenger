@@ -31,6 +31,7 @@ var TextInput = (function (_super) {
     };
     TextInput.prototype.render = function () {
         return (React.createElement("form", {onSubmit: this.clickHandler}, 
+            this.props.children, 
             React.createElement("input", {type: "text", ref: "textbox", id: "fyndme-textbox", name: "chattext", placeholder: "Type a message...", onFocus: this.getFocus, onBlur: this.loseFocus, autoComplete: "off"}), 
             React.createElement("input", {type: "submit", value: "Send"})));
     };

@@ -50,8 +50,9 @@ export default class Container extends React.Component<PropUnion, State> {
       <div className="chatbox">
         <Conversation ref="chat" {...this.props} />
         <div className="text-field">
-          <div className="persistent-menu-button" onClick={this.handleMenuClick} ></div>
-          <Input userTextCallback={this.props.userTextCallback} textFocusCallback={this.props.textFocusCallback} textBlurCallback={this.props.textBlurCallback} />
+          <Input userTextCallback={this.props.userTextCallback} textFocusCallback={this.props.textFocusCallback} textBlurCallback={this.props.textBlurCallback} >
+            <div className="persistent-menu-button" onClick={this.handleMenuClick} ></div>
+          </Input>
         </div>
         {menu}
       </div>

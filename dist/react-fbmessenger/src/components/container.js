@@ -43,8 +43,10 @@ var Container = (function (_super) {
         return (React.createElement("div", {className: "chatbox"}, 
             React.createElement(conversation_1.default, __assign({ref: "chat"}, this.props)), 
             React.createElement("div", {className: "text-field"}, 
-                React.createElement("div", {className: "persistent-menu-button", onClick: this.handleMenuClick}), 
-                React.createElement(input_1.default, {userTextCallback: this.props.userTextCallback, textFocusCallback: this.props.textFocusCallback, textBlurCallback: this.props.textBlurCallback})), 
+                React.createElement(input_1.default, {userTextCallback: this.props.userTextCallback, textFocusCallback: this.props.textFocusCallback, textBlurCallback: this.props.textBlurCallback}, 
+                    React.createElement("div", {className: "persistent-menu-button", onClick: this.handleMenuClick})
+                )
+            ), 
             menu));
     };
     return Container;

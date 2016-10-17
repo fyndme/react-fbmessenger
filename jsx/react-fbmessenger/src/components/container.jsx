@@ -29,8 +29,9 @@ class Container extends React.Component {
         return (<div className="chatbox">
         <conversation_1.default ref="chat" {...this.props}/>
         <div className="text-field">
-          <div className="persistent-menu-button" onClick={this.handleMenuClick}></div>
-          <input_1.default userTextCallback={this.props.userTextCallback} textFocusCallback={this.props.textFocusCallback} textBlurCallback={this.props.textBlurCallback}/>
+          <input_1.default userTextCallback={this.props.userTextCallback} textFocusCallback={this.props.textFocusCallback} textBlurCallback={this.props.textBlurCallback}>
+            <div className="persistent-menu-button" onClick={this.handleMenuClick}></div>
+          </input_1.default>
         </div>
         {menu}
       </div>);
