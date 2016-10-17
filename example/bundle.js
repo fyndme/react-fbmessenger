@@ -673,6 +673,12 @@
 	    }
 	  }
 	},
+	{
+	  "recipient":{
+	    "id":"USER_ID"
+	  },
+	  "sender_action": "typing_on",
+	},
 	];
 	ReactDOM.render(
 		React.createElement(ReactMessenger.Conversation, {conversation: conversation, page_id: '1'}), 
@@ -826,6 +832,9 @@
 	    for (var i = 0; i < conversation.length; i++) {
 	        var message = conversation[i];
 	        // console.log(message.toString());
+	        if (message.sender_action) {
+	            continue;
+	        }
 	        if (!message.message.mid) {
 	            message.message.mid = hash_1.hash(JSON.stringify(message));
 	            conversation[i] = message;
@@ -836,6 +845,9 @@
 	function filterConversation(conversation) {
 	    return conversation.filter(function (line) {
 	        if (line.sender_action) {
+	            if (line.sender_action === 'typing_on') {
+	                return true;
+	            }
 	            return false;
 	        }
 	        return true;
@@ -875,6 +887,7 @@
 	            }))
 	        )); });
 	        var lastMessage = bubbleArray[bubbleArray.length - 1];
+	        console.log('lm', lastMessage);
 	        var quickReplies = lastMessage.message && lastMessage.message.quick_replies ? React.createElement(quick_replies_1.default, __assign({}, lastMessage.message, {postbackCallback: this.props.postbackCallback})) : null; // eslint-disable-line
 	        var senderActions = lastMessage.sender_action ? (React.createElement("div", {className: 'bubble self'}, 
 	            React.createElement("div", {className: 'multi'}, 

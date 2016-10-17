@@ -627,6 +627,12 @@ var conversation = [
     }
   }
 },
+{
+  "recipient":{
+    "id":"USER_ID"
+  },
+  "sender_action": "typing_on",
+},
 ];
 ReactDOM.render(
 	React.createElement(ReactMessenger.Conversation, {conversation: conversation, page_id: '1'}), 

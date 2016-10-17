@@ -67,6 +67,9 @@ function addUniqueMid(conversation) {
     for (var i = 0; i < conversation.length; i++) {
         var message = conversation[i];
         // console.log(message.toString());
+        if (message.sender_action) {
+            continue;
+        }
         if (!message.message.mid) {
             message.message.mid = hash_1.hash(JSON.stringify(message));
             conversation[i] = message;
@@ -77,6 +80,9 @@ function addUniqueMid(conversation) {
 function filterConversation(conversation) {
     return conversation.filter(function (line) {
         if (line.sender_action) {
+            if (line.sender_action === 'typing_on') {
+                return true;
+            }
             return false;
         }
         return true;

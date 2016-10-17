@@ -99,6 +99,9 @@ function addUniqueMid(conversation: Array<sendTypes.MessengerPayload>): Array<se
   for(let i = 0; i < conversation.length; i++) {
     const message: sendTypes.WebhookPayload = conversation[i] as sendTypes.WebhookPayload;
     // console.log(message.toString());
+    if (message.sender_action) {
+      continue;
+    }
     if (!message.message.mid) {
       message.message.mid = hash(JSON.stringify(message));
       conversation[i] = message;
