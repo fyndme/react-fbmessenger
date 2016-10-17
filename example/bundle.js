@@ -750,8 +750,8 @@
 	        return (React.createElement("div", {className: "chatbox"}, 
 	            React.createElement(conversation_1.default, __assign({ref: "chat"}, this.props)), 
 	            React.createElement("div", {className: "text-field"}, 
-	                React.createElement(input_1.default, {userTextCallback: this.props.userTextCallback, textFocusCallback: this.props.textFocusCallback, textBlurCallback: this.props.textBlurCallback})
-	            )));
+	                React.createElement("div", {className: "persistent-menu"}), 
+	                React.createElement(input_1.default, {userTextCallback: this.props.userTextCallback, textFocusCallback: this.props.textFocusCallback, textBlurCallback: this.props.textBlurCallback}))));
 	    };
 	    return Container;
 	}(React.Component));

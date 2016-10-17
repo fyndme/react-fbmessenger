@@ -16,11 +16,16 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var conversation_1 = require('./conversation');
 exports.Conversation = conversation_1.default;
+var persistent_menu_1 = require('./persistent-menu');
 var input_1 = require('./input');
 var Container = (function (_super) {
     __extends(Container, _super);
-    function Container() {
-        _super.apply(this, arguments);
+    function Container(props) {
+        _super.call(this, props);
+        this.state = {
+            showMenu: false,
+        };
+        this.handleMenuClick = this.handleMenuClick.bind(this);
     }
     Container.prototype.componentDidMount = function () {
         var div = ReactDOM.findDOMNode(this.refs['chat']);
@@ -30,12 +35,17 @@ var Container = (function (_super) {
         var div = ReactDOM.findDOMNode(this.refs['chat']);
         div.scrollTop = div.scrollHeight;
     };
+    Container.prototype.handleMenuClick = function (event) {
+        this.setState({ showMenu: !this.state.showMenu });
+    };
     Container.prototype.render = function () {
+        var menu = this.state.showMenu ? React.createElement(persistent_menu_1.default, {postbackCallback: this.props.postbackCallback, items: this.props.persistentMenu}) : null;
         return (React.createElement("div", {className: "chatbox"}, 
             React.createElement(conversation_1.default, __assign({ref: "chat"}, this.props)), 
             React.createElement("div", {className: "text-field"}, 
-                React.createElement("div", {className: "persistent-menu"}), 
-                React.createElement(input_1.default, {userTextCallback: this.props.userTextCallback, textFocusCallback: this.props.textFocusCallback, textBlurCallback: this.props.textBlurCallback}))));
+                React.createElement("div", {className: "persistent-menu-button", onClick: this.handleMenuClick}), 
+                React.createElement(input_1.default, {userTextCallback: this.props.userTextCallback, textFocusCallback: this.props.textFocusCallback, textBlurCallback: this.props.textBlurCallback})), 
+            menu));
     };
     return Container;
 }(React.Component));
