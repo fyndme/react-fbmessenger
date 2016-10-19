@@ -72,7 +72,10 @@ function filterConversation(conversation) {
             }
             return false;
         }
-        return true;
+        if (line.message) {
+            return true;
+        }
+        return false;
     });
 }
 class Conversation extends React.Component {

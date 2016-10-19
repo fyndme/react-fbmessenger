@@ -85,7 +85,10 @@ function filterConversation(conversation) {
             }
             return false;
         }
-        return true;
+        if (line.message) {
+            return true;
+        }
+        return false;
     });
 }
 var Conversation = (function (_super) {
