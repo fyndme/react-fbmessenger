@@ -118,7 +118,10 @@ function filterConversation(conversation: Array<sendTypes.MessengerPayload>): Ar
       }
       return false;
     }
-    return true;
+    if (line.message) {
+      return true;
+    }
+    return false;
   });
 }
 
