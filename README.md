@@ -53,3 +53,16 @@ ReactDOM.render(
 
 ````
 Example: https://fynd.me (demos and chat widget)
+
+## Extras not in messenger spec
+- System notifications
+```
+{
+  "recipient":{
+    "id":""
+  },
+  "notification":{
+    "text":"System notification"
+  }
+}
+```

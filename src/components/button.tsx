@@ -16,8 +16,9 @@ export default class Button extends React.Component<Props, State> {
     this.clickHandler = this.clickHandler.bind(this);
   }
 
-  clickHandler() {
+  clickHandler(e: React.MouseEvent<HTMLSpanElement>) {
     this.props.postbackCallback(this.props.payload, this.props.title);
+    e.preventDefault();
   }
 
   render() {

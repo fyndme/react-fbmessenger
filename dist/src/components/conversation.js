@@ -53,6 +53,9 @@ function Bubble(props) {
     if (props.sender_action) {
         return React.createElement("span", null);
     }
+    if (props.notification) {
+        return React.createElement("div", {className: "notification"}, props.notification.text);
+    }
     if (props.message && props.message.text) {
         // text message
         return React.createElement(text_message_1.default, __assign({}, props.message));
@@ -68,6 +71,10 @@ function addUniqueMid(conversation) {
         var message = conversation[i];
         // console.log(message.toString());
         if (message.sender_action) {
+            continue;
+        }
+        if (message.notification) {
+            message.message = { mid: "mid." + message.notification + ".text" };
             continue;
         }
         if (!message.message.mid) {
@@ -86,6 +93,9 @@ function filterConversation(conversation) {
             return false;
         }
         if (line.message) {
+            return true;
+        }
+        if (line.notification) {
             return true;
         }
         return false;

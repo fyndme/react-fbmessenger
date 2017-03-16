@@ -12,6 +12,7 @@
 @import "video-template";
 @import "dots";
 @import "persistent-menu";
+@import "notifications";
 
 #root {
   width: inherit;
@@ -43,6 +44,7 @@
   display: flex;
   align-items: left;
   flex-direction: column;
+  position: relative;
 }
 
 .bubble .multi > p {

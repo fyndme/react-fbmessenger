@@ -7,6 +7,6 @@ export interface State {
 }
 export default class Button extends React.Component<Props, State> {
     constructor(props: Props);
-    clickHandler(): void;
+    clickHandler(e: React.MouseEvent<HTMLSpanElement>): void;
     render(): JSX.Element;
 }

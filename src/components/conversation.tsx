@@ -53,6 +53,10 @@ export function Bubble(props: sendTypes.MessengerPayload & PostbackCallbackProps
     return <span />;
   }
 
+  if ((props as any).notification) {
+    return <div className="notification">{(props as any).notification.text}</div>
+  }
+
   if (props.message && props.message.text) {
     // text message
     return <TextMessage {...props.message} />;
@@ -102,6 +106,10 @@ function addUniqueMid(conversation: Array<sendTypes.MessengerPayload>): Array<se
     if (message.sender_action) {
       continue;
     }
+    if ((message as any).notification) {
+      message.message = { mid: `mid.${(message as any).notification}.text`} as any;
+      continue;
+    }
     if (!message.message.mid) {
       message.message.mid = hash(JSON.stringify(message));
       conversation[i] = message;
@@ -119,6 +127,9 @@ function filterConversation(conversation: Array<sendTypes.MessengerPayload>): Ar
       return false;
     }
     if (line.message) {
+      return true;
+    }
+    if ((line as any).notification) {
       return true;
     }
     return false;

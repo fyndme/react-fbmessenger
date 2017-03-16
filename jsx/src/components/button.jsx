@@ -5,8 +5,9 @@ class Button extends React.Component {
         super(props);
         this.clickHandler = this.clickHandler.bind(this);
     }
-    clickHandler() {
+    clickHandler(e) {
         this.props.postbackCallback(this.props.payload, this.props.title);
+        e.preventDefault();
     }
     render() {
         if (this.props.type === 'web_url') {

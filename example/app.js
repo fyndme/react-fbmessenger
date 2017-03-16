@@ -21,6 +21,14 @@ var conversation = [
 },
 {
 	"recipient":{
+		"id":""
+	},
+	"notification":{
+		"text":"Notification from the server"
+	}
+},
+{
+	"recipient":{
 		"id":"1"
 	},
 	"message":{
