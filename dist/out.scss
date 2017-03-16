@@ -361,12 +361,15 @@ input[name="chattext"] {
   left: 50%;
 }
 
-.bubble .notification {
-  position: absolute;
-  left: 0;
-  right: 0;
+.bubble.notification > .multi {
+  width: 100%;
+  max-width: 100%;
+}
+
+.bubble.notification .notification {
   text-align: center;
   color: rgba(152, 154, 151, 0.5);
+  margin-bottom: 5px;
 }
 
 #root {
@@ -399,7 +402,6 @@ input[name="chattext"] {
   display: flex;
   align-items: left;
   flex-direction: column;
-  position: relative;
 }
 
 .bubble .multi > p {

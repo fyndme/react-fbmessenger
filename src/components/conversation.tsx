@@ -107,7 +107,7 @@ function addUniqueMid(conversation: Array<sendTypes.MessengerPayload>): Array<se
       continue;
     }
     if ((message as any).notification) {
-      message.message = { mid: `mid.${(message as any).notification}.text`} as any;
+      message.message = { mid: `mid.${(message as any).notification.text}`} as any;
       continue;
     }
     if (!message.message.mid) {
@@ -161,7 +161,7 @@ export default class Conversation extends React.Component<Props, State> { // esl
     masterArray.push(bubbleArray);
 
     const bubbles = masterArray.map((setOfMessages, index) => (
-      <div key={`${index}-${hash(JSON.stringify(setOfMessages))}`} className={`bubble ${this.props.page_id === setOfMessages[0].recipient.id ? 'user' : 'self'}`}>
+      <div key={`${index}-${hash(JSON.stringify(setOfMessages))}`} className={`bubble ${this.props.page_id === setOfMessages[0].recipient.id ? 'user' : setOfMessages[0].recipient.id === '@system' ? 'notification' : 'self'}`}>
         <div className="multi">
           {setOfMessages
             .filter(payload => payload.message) // display only messages

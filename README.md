@@ -59,7 +59,7 @@ Example: https://fynd.me (demos and chat widget)
 ```
 {
   "recipient":{
-    "id":""
+    "id":""@system"
   },
   "notification":{
     "text":"System notification"

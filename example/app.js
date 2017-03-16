@@ -21,10 +21,18 @@ var conversation = [
 },
 {
 	"recipient":{
-		"id":""
+		"id":"@system"
 	},
 	"notification":{
 		"text":"Notification from the server"
+	}
+},
+{
+	"recipient":{
+		"id":"@system"
+	},
+	"notification":{
+		"text":"Chained notifciations"
 	}
 },
 {

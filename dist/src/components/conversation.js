@@ -74,7 +74,7 @@ function addUniqueMid(conversation) {
             continue;
         }
         if (message.notification) {
-            message.message = { mid: "mid." + message.notification + ".text" };
+            message.message = { mid: "mid." + message.notification.text };
             continue;
         }
         if (!message.message.mid) {
@@ -127,7 +127,7 @@ var Conversation = (function (_super) {
             bubbleArray.push(currentMessage);
         }
         masterArray.push(bubbleArray);
-        var bubbles = masterArray.map(function (setOfMessages, index) { return (React.createElement("div", {key: index + "-" + hash_1.hash(JSON.stringify(setOfMessages)), className: "bubble " + (_this.props.page_id === setOfMessages[0].recipient.id ? 'user' : 'self')}, 
+        var bubbles = masterArray.map(function (setOfMessages, index) { return (React.createElement("div", {key: index + "-" + hash_1.hash(JSON.stringify(setOfMessages)), className: "bubble " + (_this.props.page_id === setOfMessages[0].recipient.id ? 'user' : setOfMessages[0].recipient.id === '@system' ? 'notification' : 'self')}, 
             React.createElement("div", {className: "multi"}, setOfMessages
                 .filter(function (payload) { return payload.message; }) // display only messages
                 .map(function (payload) {
